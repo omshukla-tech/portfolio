@@ -1,0 +1,396 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+    --bg-color: #000000; --text-color: #e2e8f0; --primary-color: #00ffc3;
+    --card-bg-color: #110404; --border-color: rgba(148, 163, 184, 0.2);
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.2); --transition: all 0.3s ease-in-out;
+}
+body.light-mode {
+    --bg-color: #f8f9fa; --text-color: #212529; --primary-color: #0d9488;
+    --card-bg-color: #ffffff; --border-color: #dee2e6; --shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+body {
+    font-family: 'Poppins', sans-serif; background-color: var(--bg-color); color: var(--text-color);
+    line-height: 1.6; transition: var(--transition);
+}
+body, a, button { cursor: none; }
+body.light-mode { background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23e9ecef" fill-opacity="0.4"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E'); }
+
+/* --- Custom Cursor & Trail --- */
+.cursor-dot, .cursor-outline {
+    pointer-events: none; position: fixed; top: 50%; left: 50%;
+    border-radius: 50%; z-index: 9999;
+}
+.cursor-dot {
+    width: 8px; height: 8px; background-color: var(--primary-color);
+    transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s;
+}
+.cursor-outline {
+    width: 40px; height: 40px; border: 2px solid var(--primary-color);
+    transform: translate(-50%, -50%); transition: transform 0.1s ease-out;
+}
+.trail-particle {
+    position: fixed; pointer-events: none; border-radius: 50%;
+    background-color: var(--primary-color); z-index: 9998;
+    animation: fade-out 0.8s forwards;
+}
+@keyframes fade-out {
+    to { transform: scale(0); opacity: 0; }
+}
+
+.interactive { transition: transform 0.2s ease-out; }
+#particles-js { position: fixed; width: 100%; height: 100%; z-index: -1; }
+header {
+    
+    position: fixed; top: 0; width: 100%; z-index: 1000;
+    background: rgba(9, 19, 34, 0.336); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+}
+body.light-mode header { background: rgba(255, 255, 255, 0.7); }
+nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: auto; padding: 1rem 2rem; }
+nav .logo { font-size: 1.8rem; font-weight: 700; text-decoration: none; color: var(--text-color); }
+nav .logo span { color: var(--primary-color); }
+nav ul { list-style: none; display: flex; }
+nav ul li a { color: var(--text-color); text-decoration: none; font-weight: 600; padding: 10px; margin: 0 5px; }
+#theme-toggle {
+    background: transparent; border: 2px solid var(--primary-color); color: var(--primary-color); font-size: 1.2rem;
+    border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center;
+}
+#theme-toggle:hover { background-color: var(--primary-color); color: var(--bg-color); }
+body.light-mode #theme-toggle:hover { color: #fff; }
+#theme-toggle .fa-sun, body.light-mode #theme-toggle .fa-moon { display: none; }
+#theme-toggle .fa-moon, body.light-mode #theme-toggle .fa-sun { display: block; }
+main { max-width: 1100px; margin: auto; padding: 0 2rem; }
+.container { padding: 6rem 0; }
+.section-title { text-align: center; font-size: 2.5rem; margin-bottom: 3rem; font-weight: 700; color: var(--primary-color); }
+.hero { height: 100vh; display: flex; align-items: center; text-align: center; justify-content: center; }
+.hero-content h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); }
+.hero-content h2 { font-size: clamp(1.5rem, 4vw, 2rem); margin-bottom: 1rem; }
+.hero-content h2 span { color: var(--primary-color); }
+.hero-content p { max-width: 600px; margin: 0 auto 2rem auto; }
+.social-links a { font-size: 1.8rem; color: var(--text-color); margin: 0 1rem; }
+.social-links a:hover { color: var(--primary-color); }
+.btn {
+    display: inline-block; background: var(--primary-color); color: var(--bg-color); padding: 14px 32px;
+    border-radius: 8px; text-decoration: none; font-weight: 600; border: 2px solid var(--primary-color);
+}
+.btn:hover { color: var(--primary-color); background: transparent; }
+body.light-mode .btn { color: #fff; }
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+.skill-card {
+    background-color: var(--card-bg-color); padding: 2.5rem 2rem; border-radius: 16px;
+    border: 1px solid var(--border-color); box-shadow: var(--shadow); text-align: center;
+}
+.skill-card i, .goal-item i { font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem; }
+.skill-card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+.skill-card ul { list-style: none; padding: 0; }
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+.project-card {
+    border-radius: 16px; overflow: hidden; position: relative; border: 1px solid var(--border-color);
+    height: 250px; background-color: var(--card-bg-color); box-shadow: var(--shadow);
+}
+.project-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+.project-card:hover img { transform: scale(1.1); }
+.project-info {
+    position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(15,23,42,1), transparent);
+    color: #fff; padding: 3rem 1.5rem 1.5rem; transform: translateY(100%); opacity: 0; transition: all 0.5s ease;
+}
+.project-card:hover .project-info { transform: translateY(0); opacity: 1; }
+.goals-list { display: flex; flex-direction: column; gap: 1.5rem; max-width: 800px; margin: auto; }
+.goal-item {
+    display: flex; align-items: center; gap: 1.5rem; background: var(--card-bg-color);
+    padding: 1.5rem; border-radius: 10px; border: 1px solid var(--border-color);
+}
+.goal-item i {font-size: 1.8rem; margin-bottom: 0;}
+
+#contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+#contact p {
+    max-width: 600px;
+    margin-bottom: 2rem; 
+}
+footer { text-align: center; padding: 2rem; margin-top: 4rem; border-top: 1px solid var(--border-color); }
+@media (max-width: 768px) {
+    .cursor-dot, .cursor-outline, .trail-particle { display: none; }
+    body, a, button { cursor: initial; }
+    nav ul { display: none; }
+}
+.project-links {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 0.75rem;
+}
+
+.project-links a {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600; 
+    border: 1px solid transparent; 
+    transition: all 0.3s ease;
+}
+
+.project-links a i {
+    margin-left: 8px;
+}
+
+
+.project-links a {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+
+body.light-mode .project-links a {
+    color: var(--primary-color); 
+    background-color: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.0);
+}
+
+
+.project-links a:hover {
+    background-color: var(--primary-color);
+    color: #ffffff !important; 
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 4px 20px rgba(var(--primary-color-rgb, 0, 255, 195), 0.3);
+    border-color: var(--primary-color);
+}
+
+/* Update your existing cursor styles */
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--primary-color); /* Still use primary color for the core dot */
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, background-color 0.3s ease; /* Add background-color transition */
+    z-index: 9999;
+}
+
+.cursor-outline {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, transform 0.1s ease-out;
+    z-index: 9999;
+    /* NEW: Add the glowing effect */
+    box-shadow: 
+        0 0 10px 5px rgba(255, 0, 150, 0.7), /* Pink glow */
+        0 0 20px 10px rgba(0, 200, 255, 0.5), /* Blue glow */
+        0 0 30px 15px rgba(255, 255, 0, 0.3); /* Yellow glow */
+    animation: cursorGlow 3s infinite alternate; /* Optional: Animate the glow */
+}
+
+/* Optional: Keyframes for animating the glow colors */
+@keyframes cursorGlow {
+    0% {
+        box-shadow: 
+            0 0 10px 5px rgba(255, 0, 150, 0.7),
+            0 0 20px 10px rgba(0, 200, 255, 0.5),
+            0 0 30px 15px rgba(255, 255, 0, 0.3);
+    }
+    33% {
+        box-shadow: 
+            0 0 10px 5px rgba(0, 255, 100, 0.7), /* Greenish glow */
+            0 0 20px 10px rgba(255, 50, 0, 0.5), /* Orangish glow */
+            0 0 30px 15px rgba(100, 0, 255, 0.3); /* Purplish glow */
+    }
+    66% {
+        box-shadow: 
+            0 0 10px 5px rgba(255, 150, 0, 0.7), /* Orange glow */
+            0 0 20px 10px rgba(0, 255, 255, 0.5), /* Cyan glow */
+            0 0 30px 15px rgba(255, 0, 255, 0.3); /* Magenta glow */
+    }
+    100% {
+        box-shadow: 
+            0 0 10px 5px rgba(255, 0, 150, 0.7),
+            0 0 20px 10px rgba(0, 200, 255, 0.5),
+            0 0 30px 15px rgba(255, 255, 0, 0.3);
+    }
+}
+
+/* Also, ensure your .trail-particle has some glow potential too, if desired */
+.trail-particle {
+    position: fixed;
+    pointer-events: none;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    z-index: 9998;
+    animation: fade-out 0.8s forwards;
+    /* NEW: Add a subtle glow to trail particles */
+    box-shadow: 0 0 5px 2px rgba(var(--primary-color-rgb, 0, 255, 195), 0.7); /* Use primary color for trail glow */
+}
+/* Previous .cursor-outline styles */
+.cursor-outline {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, transform 0.1s ease-out;
+    z-index: 9999;
+    box-shadow: 
+        0 0 10px 5px rgba(255, 0, 150, 0.7), /* Pink glow */
+        0 0 20px 10px rgba(0, 200, 255, 0.5), /* Blue glow */
+        0 0 30px 15px rgba(255, 255, 0, 0.3); /* Yellow glow */
+    animation: cursorGlow 3s infinite alternate; /* Optional: Animate the glow */
+}
+
+/* Updated .trail-particle to use border for the connection effect */
+.trail-particle {
+    position: fixed;
+    pointer-events: none;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    z-index: 9998;
+    animation: fade-out 0.8s forwards;
+    box-shadow: 0 0 5px 2px rgba(var(--primary-color-rgb, 0, 255, 195), 0.7);
+    /* NEW: Add a border that can be styled to look like a connection */
+    border: 1px solid transparent; /* Start transparent, will be changed by JS */
+}
+
+/* Ensure these keyframes are still defined */
+@keyframes cursorGlow {
+    0% {
+        box-shadow: 
+            0 0 10px 5px rgba(255, 0, 150, 0.7),
+            0 0 20px 10px rgba(0, 200, 255, 0.5),
+            0 0 30px 15px rgba(255, 255, 0, 0.3);
+    }
+    33% {
+        box-shadow: 
+            0 0 10px 5px rgba(0, 255, 100, 0.7), /* Greenish glow */
+            0 0 20px 10px rgba(255, 50, 0, 0.5), /* Orangish glow */
+            0 0 30px 15px rgba(100, 0, 255, 0.3); /* Purplish glow */
+    }
+    66% {
+        box-shadow: 
+            0 0 10px 5px rgba(255, 150, 0, 0.7), /* Orange glow */
+            0 0 20px 10px rgba(0, 255, 255, 0.5), /* Cyan glow */
+            0 0 30px 15px rgba(255, 0, 255, 0.3); /* Magenta glow */
+    }
+    100% {
+        box-shadow: 
+            0 0 10px 5px rgba(255, 0, 150, 0.7),
+            0 0 20px 10px rgba(0, 200, 255, 0.5),
+            0 0 30px 15px rgba(255, 255, 0, 0.3);
+    }
+}
+/* --- Custom Cursor & Trail --- */
+.cursor-dot, .cursor-outline {
+    pointer-events: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    z-index: 9999;
+    transition: transform 0.1s ease-out, width 0.2s, height 0.2s, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--primary-color);
+    transform: translate(-50%, -50%);
+}
+
+.cursor-outline {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--primary-color);
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px 5px rgba(255, 0, 150, 0.7), 0 0 20px 10px rgba(0, 200, 255, 0.5), 0 0 30px 15px rgba(255, 255, 0, 0.3);
+    animation: cursorGlow 3s infinite alternate;
+}
+
+/* Hover states for the cursor */
+.cursor-dot.hovered {
+    width: 16px;
+    height: 16px;
+    background-color: var(--element-hover-color, var(--primary-color)); /* Use element's specific color */
+}
+
+.cursor-outline.hovered {
+    width: 60px;
+    height: 60px;
+    border-color: var(--element-hover-color, var(--primary-color)); /* Use element's specific color */
+    box-shadow: 0 0 15px 7px var(--element-hover-color-rgb, var(--primary-color)), 
+                0 0 30px 15px rgba(var(--element-hover-color-rgb, 0, 255, 195), 0.5);
+    animation: none; /* Disable general glow when hovering an element */
+}
+
+/* Optional: Keyframes for animating the general cursor glow */
+@keyframes cursorGlow {
+    0% { box-shadow: 0 0 10px 5px rgba(255, 0, 150, 0.7), 0 0 20px 10px rgba(0, 200, 255, 0.5), 0 0 30px 15px rgba(255, 255, 0, 0.3); }
+    33% { box-shadow: 0 0 10px 5px rgba(0, 255, 100, 0.7), 0 0 20px 10px rgba(255, 50, 0, 0.5), 0 0 30px 15px rgba(100, 0, 255, 0.3); }
+    66% { box-shadow: 0 0 10px 5px rgba(255, 150, 0, 0.7), 0 0 20px 10px rgba(0, 255, 255, 0.5), 0 0 30px 15px rgba(255, 0, 255, 0.3); }
+    100% { box-shadow: 0 0 10px 5px rgba(255, 0, 150, 0.7), 0 0 20px 10px rgba(0, 200, 255, 0.5), 0 0 30px 15px rgba(255, 255, 0, 0.3); }
+}
+
+.trail-particle {
+    position: fixed;
+    pointer-events: none;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    z-index: 9998;
+    animation: fade-out 0.8s forwards;
+    box-shadow: 0 0 5px 2px rgba(var(--primary-color-rgb, 0, 255, 195), 0.7);
+}
+
+/* --- Interactive Element Hover Styles --- */
+.interactive {
+    transition: transform 0.2s ease-out, border-color 0.3s ease, box-shadow 0.3s ease;
+    position: relative; /* Needed for pseudo-elements if you want more complex inner glows */
+    overflow: hidden; /* Ensures inner glow doesn't spill out */
+    border: 1px solid var(--border-color); /* Add a default subtle border */
+}
+
+/* Specific hover effects */
+.interactive:hover {
+    border-color: var(--hover-border-color, var(--primary-color));
+    box-shadow: 0 0 15px 5px var(--hover-glow-color-rgba, rgba(0, 255, 195, 0.5)); /* Inner glow */
+    transform: translateY(-3px) scale(1.02); /* Slight lift for all interactive elements */
+}
+
+/* Special treatment for skill cards and goal items */
+.skill-card.interactive:hover,
+.goal-item.interactive:hover {
+    transform: scale(1.03); /* A bit more pronounced scale for cards */
+    box-shadow: 0 0 25px 8px var(--hover-glow-color-rgba, rgba(0, 255, 195, 0.7)),
+                var(--shadow); /* Keep the original shadow too */
+}
+
+/* Project cards have a different base style, so adjust */
+.project-card.interactive:hover {
+    transform: scale(1.05); /* Make project cards stand out more */
+    box-shadow: 0 0 30px 10px var(--hover-glow-color-rgba, rgba(0, 255, 195, 0.8));
+}
+
+/* Remove default cursor for interactive elements */
+.interactive {
+    cursor: none !important;
+}
+
+/* Ensure default cursor for non-interactive elements */
+body {
+    cursor: none; /* Keep the custom cursor for the whole body */
+}
+
+/* Media query to disable custom cursor on small screens */
+@media (max-width: 768px) {
+    .cursor-dot, .cursor-outline, .trail-particle {
+        display: none;
+    }
+    body, a, button, .interactive {
+        cursor: initial !important; 
+    };

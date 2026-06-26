@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://om-shukla.vercel.app/sitemap.xml
