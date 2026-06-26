@@ -641,18 +641,19 @@ body.light-mode .mobile-menu {
   align-items: center;
   gap: 12px;
   background-color: var(--bg-secondary);
-  border: 1px solid var(--border-color);
+  border: 2.5px solid var(--hover-glow-color, rgba(255, 255, 255, 0.15));
   padding: 16px 20px;
   border-radius: var(--radius-md);
   font-weight: 500;
   font-size: 15px;
-  transition: var(--transition-smooth);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease 0.15s, box-shadow 0.3s ease 0.15s;
 }
 
 .skill-tag:hover {
-  transform: translateY(-2px);
-  border-color: var(--accent);
-  box-shadow: var(--shadow-md);
+  transform: scale(1.05) translateY(-4px);
+  border-color: var(--hover-glow-color);
+  box-shadow: 0 0 15px var(--hover-glow-color);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease 0s, box-shadow 0.3s ease 0s;
 }
 
 .skill-tag i {
@@ -674,10 +675,10 @@ body.light-mode .mobile-menu {
   display: flex;
   flex-direction: column;
   background-color: var(--bg-secondary);
-  border: 1px solid var(--border-color);
+  border: 2.5px solid var(--hover-glow-color, rgba(255, 255, 255, 0.15));
   border-radius: var(--radius-lg);
   overflow: hidden;
-  transition: var(--transition-slow);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease 0.15s, box-shadow 0.3s ease 0.15s;
   box-shadow: var(--shadow-sm);
 }
 
@@ -720,9 +721,10 @@ body.light-mode .mobile-menu {
 }
 
 .project-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-lg);
-  border-color: rgba(0, 113, 227, 0.2);
+  transform: scale(1.05) translateY(-4px);
+  box-shadow: 0 0 15px var(--hover-glow-color);
+  border-color: var(--hover-glow-color);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease 0s, box-shadow 0.3s ease 0s;
 }
 
 .project-card:hover .project-img {

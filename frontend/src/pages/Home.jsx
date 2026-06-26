@@ -156,6 +156,25 @@ export default function Home() {
     }
   };
 
+  const handleCardMouseEnter = (e) => {
+    const neonColors = [
+      'rgb(255, 0, 0)',
+      'rgb(0, 255, 0)',
+      'rgb(0, 0, 255)',
+      'rgb(0, 255, 255)',
+      'rgb(255, 0, 128)',
+      'rgb(128, 0, 255)',
+      'rgb(255, 68, 0)',
+      'rgb(255, 200, 0)'
+    ];
+    const randomColor = neonColors[Math.floor(Math.random() * neonColors.length)];
+    e.currentTarget.style.setProperty('--hover-glow-color', randomColor);
+  };
+
+  const handleCardMouseLeave = (e) => {
+    e.currentTarget.style.removeProperty('--hover-glow-color');
+  };
+
   // Group skills by category
   const skillsByCategory = {
     primary: skills.filter(s => s.category === 'primary'),
@@ -249,7 +268,12 @@ export default function Home() {
                 <h3 className="skills-cat-title reveal-hidden">Programming Languages</h3>
                 <div className="skills-list">
                   {skillsByCategory.primary.map(skill => (
-                    <div key={skill.id} className="skill-tag reveal-hidden">
+                    <div 
+                      key={skill.id} 
+                      className="skill-tag reveal-hidden"
+                      onMouseEnter={handleCardMouseEnter}
+                      onMouseLeave={handleCardMouseLeave}
+                    >
                       <i className={skill.icon_class || "fas fa-code"} />
                       <span>{skill.name}</span>
                     </div>
@@ -263,7 +287,12 @@ export default function Home() {
                 <h3 className="skills-cat-title reveal-hidden">Frontend Frameworks</h3>
                 <div className="skills-list">
                   {skillsByCategory.secondary.map(skill => (
-                    <div key={skill.id} className="skill-tag reveal-hidden">
+                    <div 
+                      key={skill.id} 
+                      className="skill-tag reveal-hidden"
+                      onMouseEnter={handleCardMouseEnter}
+                      onMouseLeave={handleCardMouseLeave}
+                    >
                       <i className={skill.icon_class || "fab fa-react"} />
                       <span>{skill.name}</span>
                     </div>
@@ -277,7 +306,12 @@ export default function Home() {
                 <h3 className="skills-cat-title reveal-hidden">Backend & Databases</h3>
                 <div className="skills-list">
                   {skillsByCategory.backend.map(skill => (
-                    <div key={skill.id} className="skill-tag reveal-hidden">
+                    <div 
+                      key={skill.id} 
+                      className="skill-tag reveal-hidden"
+                      onMouseEnter={handleCardMouseEnter}
+                      onMouseLeave={handleCardMouseLeave}
+                    >
                       <i className={skill.icon_class || "fas fa-server"} />
                       <span>{skill.name}</span>
                     </div>
@@ -291,7 +325,12 @@ export default function Home() {
                 <h3 className="skills-cat-title reveal-hidden">Core Concepts</h3>
                 <div className="skills-list">
                   {skillsByCategory.strength.map(skill => (
-                    <div key={skill.id} className="skill-tag reveal-hidden">
+                    <div 
+                      key={skill.id} 
+                      className="skill-tag reveal-hidden"
+                      onMouseEnter={handleCardMouseEnter}
+                      onMouseLeave={handleCardMouseLeave}
+                    >
                       <i className={skill.icon_class || "fas fa-project-diagram"} />
                       <span>{skill.name}</span>
                     </div>
@@ -305,7 +344,12 @@ export default function Home() {
                 <h3 className="skills-cat-title reveal-hidden">Certifications & Simulation</h3>
                 <div className="skills-list">
                   {skillsByCategory.certification.map(skill => (
-                    <div key={skill.id} className="skill-tag reveal-hidden">
+                    <div 
+                      key={skill.id} 
+                      className="skill-tag reveal-hidden"
+                      onMouseEnter={handleCardMouseEnter}
+                      onMouseLeave={handleCardMouseLeave}
+                    >
                       <i className={skill.icon_class || "fas fa-certificate"} />
                       <span>{skill.name}</span>
                     </div>
@@ -325,7 +369,12 @@ export default function Home() {
 
           <div className="projects-grid">
             {projects.map(project => (
-              <div key={project.id} className="project-card reveal-hidden focus-scale">
+              <div 
+                key={project.id} 
+                className="project-card reveal-hidden focus-scale"
+                onMouseEnter={handleCardMouseEnter}
+                onMouseLeave={handleCardMouseLeave}
+              >
                 <div className="project-img-wrapper">
                   <img 
                     src={project.img} 
