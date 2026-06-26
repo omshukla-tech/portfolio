@@ -21,7 +21,7 @@ class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(150), nullable=False)
     bio = db.Column(db.Text, nullable=False)
-    img = db.Column(db.String(300), nullable=False)
+    img = db.Column(db.Text, nullable=True)
     previewLink = db.Column(db.String(300), nullable=True)
     codeLink = db.Column(db.String(300), nullable=True)
     display_order = db.Column(db.Integer, default=0)
