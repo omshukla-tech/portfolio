@@ -13,12 +13,15 @@
       "src": "frontend/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "frontend/dist"
+        "distDir": "dist"
       }
     },
     {
       "src": "backend/run.py",
-      "use": "@vercel/python"
+      "use": "@vercel/python",
+      "config": {
+        "runtime": "python3.9"
+      }
     }
   ],
   "routes": [
@@ -31,7 +34,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "/frontend/$1"
     }
   ]
 }
