@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 export default function Header() {
   const [isDark, setIsDark] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -19,6 +20,16 @@ export default function Header() {
       document.body.classList.add('dark-mode');
       setIsDark(true);
     }
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsMenuOpen(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const toggleTheme = () => {
@@ -60,7 +71,7 @@ export default function Header() {
   return (
     <header className="header">
       <div className="nav-container">
-        <Link to="/" className="logo">
+        <Link to="/" className="logo" onClick={() => setIsMenuOpen(false)}>
           <span>O</span>m Shukla
         </Link>
 
@@ -117,11 +128,89 @@ export default function Header() {
             className="admin-btn" 
             aria-label="Admin Dashboard"
             title="Admin Dashboard"
+            onClick={() => setIsMenuOpen(false)}
           >
             <i className="fas fa-lock"></i>
           </Link>
+
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className={`hamburger ${isMenuOpen ? 'open' : ''}`}
+            aria-label="Toggle navigation menu"
+            aria-expanded={isMenuOpen}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
         </div>
+      </div>
+
+      {/* Mobile Dropdown Menu */}
+      <div className={`mobile-menu ${isMenuOpen ? 'open' : ''}`}>
+        {!isAdminRoute ? (
+          <ul className="mobile-nav-links">
+            <li>
+              <a 
+                href="#home" 
+                onClick={(e) => { handleNavClick(e, 'home'); setIsMenuOpen(false); }} 
+                className="mobile-nav-link"
+              >
+                Home
+              </a>
+            </li>
+            <li>
+              <a 
+                href="#about" 
+                onClick={(e) => { handleNavClick(e, 'about'); setIsMenuOpen(false); }} 
+                className="mobile-nav-link"
+              >
+                About
+              </a>
+            </li>
+            <li>
+              <a 
+                href="#skills" 
+                onClick={(e) => { handleNavClick(e, 'skills'); setIsMenuOpen(false); }} 
+                className="mobile-nav-link"
+              >
+                Skills
+              </a>
+            </li>
+            <li>
+              <a 
+                href="#projects" 
+                onClick={(e) => { handleNavClick(e, 'projects'); setIsMenuOpen(false); }} 
+                className="mobile-nav-link"
+              >
+                Projects
+              </a>
+            </li>
+            <li>
+              <a 
+                href="#contact" 
+                onClick={(e) => { handleNavClick(e, 'contact'); setIsMenuOpen(false); }} 
+                className="mobile-nav-link"
+              >
+                Contact
+              </a>
+            </li>
+          </ul>
+        ) : (
+          <ul className="mobile-nav-links">
+            <li>
+              <Link 
+                to="/" 
+                onClick={() => setIsMenuOpen(false)} 
+                className="mobile-nav-link"
+              >
+                Back to Site
+              </Link>
+            </li>
+          </ul>
+        )}
       </div>
     </header>
   );
 }
+
